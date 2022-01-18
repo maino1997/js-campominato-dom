@@ -36,12 +36,12 @@ goBtn.addEventListener('click', () => {
 
     // Creo la griglia con tutte le celle 
 
-    const createGrid = (griglia, wh) => {
+    const createGrid = (griglia, wh, bombsList) => {
         for (let i = 1; i <= cellTot; i++) {
             const singleCell = createCell(i, wh);
             griglia.appendChild(singleCell);
 
-            singleCell.addEventListener('click', (event) => onCellClick(event.target, bombs, i));
+            singleCell.addEventListener('click', (event) => onCellClick(event.target, bombsList, i));
         }
     }
 
@@ -70,23 +70,25 @@ goBtn.addEventListener('click', () => {
 
     // Creo una funzione per controllare al click se ho cliccato su una bomba e se si avvio il game over 
     const onCellClick = (clickedCell, bombsList, controlNumber) => {
-        if (bombsList.includes(controlNumber)) {
-            gameOver(true);
-            clickedCell.classList.add("bomb");
 
+
+        if (bombsList.includes(controlNumber)) {
+            gameOver(true, bombsList);
+            clickedCell.classList.add("bomb");
         } else {
             clickedCell.classList.add("safe");
             attempts++;
             if (attempts == maxAttempts) {
-                gameOver(false);
+                gameOver(false, bombsList);
             }
         }
     }
 
 
     // Creo funzione gameover 
-    const gameOver = (isLoss) => {
+    const gameOver = (isLoss, bombsList) => {
         const newElement = document.createElement('h2');
+        showBombs(bombsList);
         if (isLoss) {
             newElement.innerText = "Hai perso, rigioca";
         } else {
@@ -100,7 +102,19 @@ goBtn.addEventListener('click', () => {
 
 
     // Creo una funzione per mostrare tutte le bombe 
+    const showBombs = (bombsList) => {
+        const allCell = document.querySelectorAll(".cell");
 
+        for (let i = 0; i < cellTot; i++) {
+
+            const cellNumber = parseInt(allCell[i].innerText);
+            console.log(cellNumber);
+
+            if (bombsList.includes(cellNumber)) {
+                allCell[i].classList.add("bomb");
+            }
+        }
+    }
 
 
 
@@ -114,7 +128,7 @@ goBtn.addEventListener('click', () => {
 
     const bombs = getBombs(totBomb);
     console.log(bombs);
-    createGrid(grid, wh);
+    createGrid(grid, wh, bombs);
 
 
 });
