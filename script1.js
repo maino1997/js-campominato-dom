@@ -12,8 +12,6 @@ goBtn.addEventListener('click', () => {
     let maxAttempts = cellTot - totBomb;
 
 
-    // console.log(cellTot);
-
     // Creo una cella 
     const createCell = (cellNumber, cellsPerRow) => {
         const cell = document.createElement('div');
@@ -111,14 +109,13 @@ goBtn.addEventListener('click', () => {
             console.log(cellNumber);
 
             if (bombsList.includes(cellNumber)) {
+                const icon = document.createElement('div');
+                icon.innerHTML = "<i class='fas fa-bomb'></i>";
+                allCell[i].appendChild(icon);
                 allCell[i].classList.add("bomb");
             }
         }
     }
-
-
-
-
 
 
 

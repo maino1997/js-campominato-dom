@@ -97,3 +97,8 @@ option{
 .danger{
     background-color: red;
 }
+
+.fas{
+    height: 10px;
+    width: 10px;
+}
