@@ -28,7 +28,7 @@ goBtn.addEventListener('click', () => {
         cell.style.height = cellsPerRow;
         cell.style.width = cellsPerRow;
         cell.classList.add("cell");
-        cell.append(cellNumber + 1);
+        cell.append(cellNumber);
 
         return cell;
     }
@@ -37,7 +37,7 @@ goBtn.addEventListener('click', () => {
     // Creo la griglia con tutte le celle 
 
     const createGrid = (griglia, wh) => {
-        for (let i = 0; i < cellTot; i++) {
+        for (let i = 1; i <= cellTot; i++) {
             const singleCell = createCell(i, wh);
             griglia.appendChild(singleCell);
 
@@ -56,7 +56,9 @@ goBtn.addEventListener('click', () => {
         const bombs = [];
         while (bombs.length < totalBomb) {
             const rdnNum = getRandomNumber(1, cellTot);
-            bombs.push(rdnNum);
+            if (!bombs.includes(rdnNum)) {
+                bombs.push(rdnNum);
+            }
         }
         return bombs;
     }
@@ -88,7 +90,7 @@ goBtn.addEventListener('click', () => {
         if (isLoss) {
             newElement.innerText = "Hai perso, rigioca";
         } else {
-            newElement.innerText = "Hai vinto, rigioca";
+            newElement.innerText = `Hai vinto con un punteggio di ${attempts}`;
         }
 
         grid.appendChild(newElement);
@@ -96,6 +98,8 @@ goBtn.addEventListener('click', () => {
 
 
 
+
+    // Creo una funzione per mostrare tutte le bombe 
 
 
 
@@ -109,6 +113,7 @@ goBtn.addEventListener('click', () => {
 
 
     const bombs = getBombs(totBomb);
+    console.log(bombs);
     createGrid(grid, wh);
 
 
