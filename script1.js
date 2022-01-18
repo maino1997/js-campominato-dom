@@ -5,8 +5,23 @@ const goBtn = document.getElementById("start");
 goBtn.addEventListener('click', () => {
     const grid = document.getElementById("grid");
     grid.innerHTML = "";
-    let wh = parseInt(document.getElementById('choices').value);
-    let cellTot = wh * wh;
+    const select = document.getElementById('choices');
+    let columns;
+
+    switch (select.value) {
+        case "2":
+            columns = 9;
+            break;
+        case "3":
+            columns = 7;
+            break;
+        default:
+            columns = 10;
+            break;
+    }
+
+
+    let cellTot = columns * columns;
     let totBomb = 16;
     let attempts = 0;
     let maxAttempts = cellTot - totBomb;
@@ -125,7 +140,7 @@ goBtn.addEventListener('click', () => {
 
     const bombs = getBombs(totBomb);
     console.log(bombs);
-    createGrid(grid, wh, bombs);
+    createGrid(grid, columns, bombs);
 
 
 });
