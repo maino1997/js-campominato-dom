@@ -17,6 +17,7 @@ const grid = document.getElementById("grid-container");
 
 
 genBtn.addEventListener('click', () => {
+
     let userChoice = userLevel.value;
     if (userChoice === "1") {
         userChoice = 100;
@@ -26,41 +27,14 @@ genBtn.addEventListener('click', () => {
         userChoice = 49;
     }
 
-    const createCell = (cellmax, docGrid) => {
-        grid.innerHTML = "";
-        for (let i = 1; i <= cellmax; i++) {
-            const newCell = document.createElement('div');
-            newCell.append(i);
-            newCell.classList.add("cell");
-            newCell.id = (i);
-
-            if (cellmax == 100) {
-                newCell.classList.add("cell-10");
-            } else if (cellmax == 81) {
-                newCell.classList.add("cell-8");
-            } else {
-                newCell.classList.add("cell-5");
-            }
-
-            newCell.addEventListener('click', () => {
-                newCell.classList.toggle("bg-blue");
-            });
-
-            docGrid.appendChild(newCell);
-        }
-    }
-
-
     const rdnNumber = (max, min) => {
         const rdnNum = Math.floor(Math.random() * (max - min) + 1) - min;
         return rdnNum;
     }
 
-    console.log(rdnNumber(userChoice, 1));
+    const bombs = [];
 
-
-    const getBombs = (userChoice) => {
-        const bombs = [];
+    const getBombs = (userChoice, bombs) => {
         while (bombs.length < 16) {
             const randomNum = rdnNumber(userChoice, 1);
             if (!bombs.includes(randomNum)) {
@@ -70,8 +44,71 @@ genBtn.addEventListener('click', () => {
         return bombs;
     }
 
-    console.log(getBombs(userChoice));
+    console.log(getBombs(userChoice, bombs));
 
+    const singleCell = (i, docGrid, cellmax, bombs) => {
+        const newCell = document.createElement('div');
+        newCell.append(i);
+        newCell.classList.add("cell");
+        newCell.id = (i);
+
+        if (cellmax == 100) {
+            newCell.classList.add("cell-10");
+        } else if (cellmax == 81) {
+            newCell.classList.add("cell-8");
+        } else {
+            newCell.classList.add("cell-5");
+        }
+
+        if (bombs.includes(i)) {
+            newCell.classList.add("bomb");
+            console.log(i);
+        }
+
+
+        docGrid.appendChild(newCell);
+        return newCell;
+    }
+
+
+    const createCell = (cellmax) => {
+        grid.innerHTML = "";
+        for (let i = 1; i <= cellmax; i++) {
+
+            const cell = singleCell(i, grid, userChoice, bombs);
+
+
+            cell.addEventListener('click', () => {
+                cell.classList.toggle("bg-blue");
+            });
+
+        }
+    }
+
+
+
+
+    console.log(rdnNumber(userChoice, 1));
+
+
+
+
+
+    // console.log(getBombs(userChoice, bombs));
+
+
+
+
+    const addBombClass = (userChoice, bombsList, newCell) => {
+        const allCells = document.querySelectorAll(".cell");
+
+
+        for (let i = 0; i < userChoice; i++) {
+
+        }
+    }
+
+    console.log(addBombClass(userChoice, bombs, createCell(userChoice, grid)));
 
 
 
@@ -95,6 +132,6 @@ genBtn.addEventListener('click', () => {
 
 
 
-    createCell(userChoice, grid);
+    createCell(userChoice);
 
 });

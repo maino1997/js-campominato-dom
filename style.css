@@ -43,7 +43,7 @@ main{
     width: calc(100% / 7);
 }
 
-#grid-container{
+#grid{
     border: 1px solid white;
     display: flex;
     flex-wrap: wrap;
@@ -84,4 +84,12 @@ option{
     padding: 5px;
     border-radius: 5px;
     background-color: lightcoral;
+}
+
+.safe{
+    background-color: green;
+}
+
+.bomb{
+    background-color: red;
 }
