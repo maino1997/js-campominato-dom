@@ -83,7 +83,7 @@ goBtn.addEventListener('click', () => {
 
     // Creo una funzione per controllare al click se ho cliccato su una bomba e se si avvio il game over 
     const onCellClick = (clickedCell, bombsList, controlNumber) => {
-
+        clickedCell.removeEventListener('click', onCellClick);
 
         if (bombsList.includes(controlNumber)) {
             gameOver(true, bombsList);

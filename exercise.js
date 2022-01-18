@@ -87,7 +87,7 @@ function start() {
 
     // Gestisco l'evento al click
     function onCellClick(clickedCell, bombs, number) {
-        clickedCell.removeEventListener("click", onCellClick);
+        clickedCell.removeEventListener("click", clickedCell.fn, false);
         console.log('ciao');
 
         // Controllo se è una bomba
