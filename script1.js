@@ -144,7 +144,7 @@ goBtn.addEventListener('click', () => {
 
 
 
-
+    //--------- ESECUZIONE DEL PROGRAMMA ---------- 
 
     const bombs = getBombs(totBomb);
     console.log(bombs);
