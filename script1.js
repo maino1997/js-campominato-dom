@@ -1,3 +1,4 @@
+
 const goBtn = document.getElementById("start");
 
 
@@ -83,13 +84,14 @@ goBtn.addEventListener('click', () => {
 
     // Creo una funzione per controllare al click se ho cliccato su una bomba e se si avvio il game over 
     const onCellClick = (clickedCell, bombsList, controlNumber) => {
-        clickedCell.removeEventListener('click', onCellClick);
+        const cloneCell = disableCell(clickedCell, bombsList);
+        cloneCell.removeEventListener('click', onCellClick);
 
         if (bombsList.includes(controlNumber)) {
             gameOver(true, bombsList);
-            clickedCell.classList.add("bomb");
+            cloneCell.classList.add("bomb");
         } else {
-            clickedCell.classList.add("safe");
+            cloneCell.classList.add("safe");
             attempts++;
             if (attempts == maxAttempts) {
                 gameOver(false, bombsList);
@@ -119,17 +121,23 @@ goBtn.addEventListener('click', () => {
         const allCell = document.querySelectorAll(".cell");
 
         for (let i = 0; i < cellTot; i++) {
-
-            const cellNumber = parseInt(allCell[i].innerText);
+            const disabledCell = disableCell(allCell[i], bombsList);
+            const cellNumber = parseInt(disabledCell.innerText);
             console.log(cellNumber);
 
             if (bombsList.includes(cellNumber)) {
-                const icon = document.createElement('div');
-                icon.innerHTML = "<i class='fas fa-bomb'></i>";
-                allCell[i].appendChild(icon);
-                allCell[i].classList.add("bomb");
+                disabledCell.classList.add("bomb");
             }
         }
+    }
+
+
+    // Creo una funzione per creare una cella clone senza eventi 
+    const disableCell = (cell, bombsList) => {
+        const clone = cell.cloneNode();
+        clone.innerText = cell.innerText;
+        cell.parentNode.replaceChild(clone, cell);
+        return clone;
     }
 
 
